@@ -1,0 +1,367 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   NIRVAN '26 — The Grand Conclave of Tech & Wizardry
+   Hogwarts / Harry Potter Magical Tech Fest Design System
+   ═══════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Color Palette (Enchanted Dark Void & House Colors) ── */
+  --color-void: #070810;
+  --color-void-deep: #040509;
+  --color-surface: #0f1220;
+  --color-surface-hover: #171c32;
+  --color-surface-bright: #1f2542;
+  --color-surface-container: #262e50;
+  --color-hairline: #2a3154;
+  --color-hairline-light: rgba(232, 191, 122, 0.15);
+  --color-hairline-hover: rgba(232, 191, 122, 0.4);
+
+  /* ── High Contrast Text Tokens ── */
+  --color-text-primary: #f8fafc;
+  --color-text-warm: #fef08a;
+  --color-text-muted: #cbd5e1;
+  --color-text-dim: #94a3b8;
+
+  /* ── Hogwarts House & Arcane Accents ── */
+  /* Gryffindor & Solar Gold */
+  --color-accent-gold: #f59e0b;
+  --color-accent-gold-bright: #fde047;
+  --color-accent-gold-dim: #b45309;
+  --color-accent-gold-soft: #fef3c7;
+
+  /* Ravenclaw Sapphire & Starlight */
+  --color-accent-indigo: #818cf8;
+  --color-accent-indigo-bright: #c7d2fe;
+  --color-accent-indigo-dim: #4f46e5;
+
+  /* Arcane Mystic Violet */
+  --color-accent-violet: #a855f7;
+  --color-accent-violet-bright: #e9d5ff;
+  --color-accent-violet-dim: #7e22ce;
+
+  /* Slytherin Emerald */
+  --color-accent-green: #10b981;
+  --color-accent-green-bright: #6ee7b7;
+
+  /* Gryffindor Crimson / Ruby */
+  --color-accent-ruby: #ef4444;
+  --color-accent-ruby-bright: #fca5a5;
+
+  /* Hufflepuff Amber */
+  --color-accent-amber: #d97706;
+
+  /* ── Typography Families ── */
+  --font-display: "Cinzel", "Fraunces", "Georgia", serif;
+  --font-magical: "Cinzel Decorative", "Cinzel", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* ── Radii ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* ── Nav Height ── */
+  --nav-height: 72px;
+
+  /* ── Animations ── */
+  --animate-fade-in: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-float-slow: float-slow 6s ease-in-out infinite;
+  --animate-candle-flame: candle-flame 2.5s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(1deg); }
+  }
+
+  @keyframes candle-flame {
+    0%, 100% { transform: scale(1) skewX(0deg); opacity: 0.95; }
+    25% { transform: scale(1.08, 0.94) skewX(-2deg); opacity: 0.82; }
+    50% { transform: scale(0.94, 1.06) skewX(2deg); opacity: 1; }
+    75% { transform: scale(1.04, 0.98) skewX(-1deg); opacity: 0.88; }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Global Reset & Base Rules
+   ═══════════════════════════════════════════════════════════════ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-void);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  selection-background-color: rgba(245, 158, 11, 0.3);
+  selection-color: #fef08a;
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.35);
+  color: #fffbeb;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-text-warm);
+  line-height: 1.25;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Typography Utilities ── */
+.font-magical {
+  font-family: "Cinzel Decorative", "Cinzel", serif;
+}
+
+.font-display {
+  font-family: "Cinzel", "Fraunces", "Georgia", serif;
+}
+
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #cbd5e1;
+}
+
+/* ── Scrollbar Styling ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #05060c;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #b45309 0%, #d97706 50%, #4f46e5 100%);
+  border-radius: 9999px;
+  border: 2px solid #05060c;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Harry Potter Atmospheric & Enchanted UI Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Gold Shimmer Text Effect ── */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #fef08a 0%,
+    #f59e0b 25%,
+    #ffffff 50%,
+    #f59e0b 75%,
+    #fef08a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: mystical-shimmer 5s linear infinite;
+}
+
+@keyframes mystical-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Silver/Moonlight Shimmer ── */
+.text-shimmer-silver {
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 0%,
+    #93c5fd 25%,
+    #ffffff 50%,
+    #a78bfa 75%,
+    #e2e8f0 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: mystical-shimmer 6s linear infinite;
+}
+
+/* ── Ornate Metallic Gothic Frame ── */
+.metallic-frame {
+  border: 1px solid rgba(232, 191, 122, 0.22);
+  background: linear-gradient(180deg, rgba(20, 24, 44, 0.85) 0%, rgba(10, 12, 22, 0.95) 100%);
+  position: relative;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(254, 240, 138, 0.12);
+}
+
+.metallic-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.6) 50%, transparent 100%);
+}
+
+/* ── Hogwarts Parchment Card ── */
+.parchment-card {
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, rgba(30, 36, 68, 0.65) 0%, rgba(10, 12, 24, 0.95) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(254, 240, 138, 0.08);
+}
+
+.parchment-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 16px 36px -12px rgba(245, 158, 11, 0.25), 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+/* ── Decorative Corner Runes ── */
+.corner-runes {
+  position: relative;
+}
+.corner-runes::after {
+  content: "✦";
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 10px;
+  color: #f59e0b;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ── Floating Candle Element ── */
+.candle-glow {
+  filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.8)) drop-shadow(0 0 32px rgba(239, 68, 68, 0.4));
+}
+
+/* ── Runic Divider ── */
+.runic-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px auto;
+  opacity: 0.8;
+}
+.runic-divider::before,
+.runic-divider::after {
+  content: "";
+  height: 1px;
+  width: 90px;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.7), transparent);
+}
+
+/* ── Golden Button Primary ── */
+.btn-gold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+  color: #070810;
+  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+  border: 1px solid #fef08a;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.6), 0 6px 20px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #ffffff 0%, #fde047 50%, #f59e0b 100%);
+}
+
+/* ── Spellbook Outline Button ── */
+.btn-outline-magic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 26px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+  color: #fef08a;
+  background: rgba(15, 18, 32, 0.75);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+.btn-outline-magic:hover {
+  border-color: #fef08a;
+  color: #ffffff;
+  background: rgba(245, 158, 11, 0.15);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ── Fixed ensure visible fade-up helper ── */
+.fade-up {
+  opacity: 1 !important; /* Never hide text by default */
+  transform: translateY(0);
+}
+
+/* ── Wand Progress Bar ── */
+.wand-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f59e0b, #fef08a, #818cf8, #a855f7, #f59e0b);
+  background-size: 200% 100%;
+  animation: mystical-shimmer 4s linear infinite;
+  z-index: 9999;
+  transform-origin: 0%;
+  box-shadow: 0 0 10px #f59e0b, 0 0 20px #fef08a;
+}
