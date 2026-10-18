@@ -90,8 +90,14 @@ export default function App() {
         {/* 01: Hero Section */}
         <HeroSection onOpenRegister={() => handleOpenRegister("")} />
 
+        {/* ─── Divider ─── */}
+        <div className="section-divider" />
+
         {/* 02: About Festival & Core Disciplines */}
         <AboutSection onOpenRegister={() => handleOpenRegister("")} />
+
+        {/* ─── Divider ─── */}
+        <div className="section-divider" />
 
         {/* 03: Featured Events & Competitions */}
         <EventsSection
@@ -99,17 +105,32 @@ export default function App() {
           onRegister={(slug) => handleOpenRegister(slug)}
         />
 
+        {/* ─── Divider ─── */}
+        <div className="section-divider" />
+
         {/* 04: Interactive Schedule & Timeline */}
         <ScheduleSection />
+
+        {/* ─── Divider ─── */}
+        <div className="section-divider" />
 
         {/* 05: Keynote Speakers & Mentors */}
         <SpeakersSection />
 
+        {/* ─── Divider ─── */}
+        <div className="section-divider" />
+
         {/* 06: NIRVAN Through the Years (Gallery Carousel) */}
         <GallerySection onOpenLightbox={handleOpenLightbox} />
 
+        {/* ─── Divider ─── */}
+        <div className="section-divider" />
+
         {/* 07: Sponsors & Partners */}
         <SponsorsSection />
+
+        {/* ─── Divider ─── */}
+        <div className="section-divider" />
 
         {/* 08: Contact & Venue */}
         <ContactSection />

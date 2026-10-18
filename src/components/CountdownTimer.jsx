@@ -1,9 +1,46 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const TARGET_DATE = new Date("2026-10-24T09:00:00+05:30").getTime();
 
 function padZero(n) {
   return String(n).padStart(2, "0");
+}
+
+function TimerUnit({ label, value }) {
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <div className="relative bg-[#0a0d1c]/95 border border-[#f59e0b]/30 rounded-xl sm:rounded-2xl w-[68px] sm:w-[84px] md:w-[96px] h-[72px] sm:h-[88px] md:h-[100px] flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(254,240,138,0.15)] backdrop-blur-xl overflow-hidden transition-all duration-200 hover:scale-105 hover:border-[#fef08a]/50 group">
+        {/* Top gold ambient hairline */}
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#f59e0b] to-transparent" />
+
+        {/* Middle split line for flip card effect */}
+        <div className="absolute left-2 right-2 top-1/2 h-px bg-white/5" />
+
+        {/* Value with digit flip animation */}
+        <AnimatePresence mode="popLayout">
+          <motion.span
+            key={value}
+            initial={{ y: -12, opacity: 0, scale: 0.9 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: 12, opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl sm:text-4xl md:text-5xl font-black font-mono text-[#fef08a] leading-none tracking-tight drop-shadow-[0_2px_12px_rgba(245,158,11,0.5)]"
+          >
+            {padZero(value)}
+          </motion.span>
+        </AnimatePresence>
+
+        {/* Subtle bottom reflection */}
+        <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-[#f59e0b]/[0.03] to-transparent pointer-events-none" />
+      </div>
+
+      {/* Label */}
+      <span className="label-mono text-[9px] sm:text-[10px] text-[#94a3b8] mt-2.5 tracking-[0.18em] font-bold">
+        {label}
+      </span>
+    </div>
+  );
 }
 
 export default function CountdownTimer({ className = "" }) {
@@ -33,29 +70,26 @@ export default function CountdownTimer({ className = "" }) {
   ];
 
   return (
-    <div className={`flex items-center justify-center gap-3 sm:gap-4 mx-auto select-none ${className}`}>
+    <div
+      className={`flex items-start justify-center gap-3 sm:gap-4 md:gap-5 mx-auto select-none ${className}`}
+    >
       {units.map(({ label, value }, idx) => (
-        <div key={label} className="flex items-center gap-3 sm:gap-4">
-          <div className="flex flex-col items-center justify-center bg-[#0a0d1c]/90 border border-[#f59e0b]/35 rounded-2xl w-[72px] sm:w-[88px] md:w-[96px] py-3 sm:py-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(254,240,138,0.2)] backdrop-blur-xl relative overflow-hidden transition-transform duration-200 hover:scale-105 hover:border-[#fef08a]/60">
-            {/* Top gold ambient hairline */}
-            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#f59e0b] to-transparent" />
-            
-            {/* Value */}
-            <span className="text-3xl sm:text-4xl md:text-5xl font-black font-mono text-[#fef08a] leading-none tracking-tight drop-shadow-[0_2px_12px_rgba(245,158,11,0.5)]">
-              {padZero(value)}
-            </span>
-            
-            {/* Label */}
-            <span className="label-mono text-[9px] sm:text-[10px] text-[#94a3b8] mt-1.5 tracking-[0.2em] font-bold">
-              {label}
-            </span>
-          </div>
-
-          {/* Golden colon separator between units (except last) */}
+        <div key={label} className="flex items-start gap-3 sm:gap-4 md:gap-5">
+          <TimerUnit label={label} value={value} />
+          {/* Colon separator */}
           {idx < units.length - 1 && (
-            <span className="hidden sm:inline-block font-mono text-xl sm:text-2xl font-bold text-[#f59e0b]/60 -mt-3 select-none">
-              :
-            </span>
+            <div className="hidden sm:flex flex-col items-center justify-center gap-2 pt-5 md:pt-7">
+              <motion.span
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1, repeat: Infinity }}
+                className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"
+              />
+              <motion.span
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 1, repeat: Infinity }}
+                className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"
+              />
+            </div>
           )}
         </div>
       ))}

@@ -48,9 +48,9 @@ export default function EventsSection({ onOpenDetail, onRegister }) {
   };
 
   return (
-    <section id="events" className="relative py-28 px-4 sm:px-8 bg-[#05060c] overflow-hidden">
+    <section id="events" className="relative py-24 sm:py-28 px-4 sm:px-8 bg-[#05060c] overflow-hidden">
       {/* Background Editorial Watermark */}
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 font-display text-7xl sm:text-9xl font-black text-white/[0.02] tracking-[0.25em] uppercase select-none pointer-events-none whitespace-nowrap">
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 font-display text-7xl sm:text-9xl font-black text-white/[0.015] tracking-[0.25em] uppercase select-none pointer-events-none whitespace-nowrap">
         COMPETITIONS
       </div>
 
@@ -136,17 +136,18 @@ export default function EventsSection({ onOpenDetail, onRegister }) {
         {/* Events Grid with Silky Smooth Fade Transition & Interactive Depth */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           <AnimatePresence mode="popLayout">
-            {filteredEvents.map((event) => {
+            {filteredEvents.map((event, evIdx) => {
               const accent = categoryAccents[event.category] || categoryAccents.All;
               return (
                 <motion.div
                   key={event.id}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-40px" }}
                   exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.2 }}
-                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                  className="parchment-card rounded-2xl overflow-hidden border border-[#f59e0b]/25 flex flex-col justify-between group hover:border-[#f59e0b]/75 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_15px_40px_rgba(245,158,11,0.22)] cursor-pointer"
+                  transition={{ duration: 0.45, delay: evIdx * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -8, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
+                  className="parchment-card rounded-2xl overflow-hidden border border-[#f59e0b]/25 flex flex-col justify-between group hover:border-[#f59e0b]/75 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(245,158,11,0.22)] cursor-pointer"
                   onClick={() => {
                     playWandClick();
                     onOpenDetail(event);

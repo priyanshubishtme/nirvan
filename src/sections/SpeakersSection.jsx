@@ -30,7 +30,11 @@ export default function SpeakersSection() {
   };
 
   return (
-    <section id="speakers" className="relative py-28 px-4 sm:px-8 bg-[#05060c] overflow-hidden">
+    <section id="speakers" className="relative py-24 sm:py-28 px-4 sm:px-8 bg-[#05060c] overflow-hidden">
+      {/* Ambient background glows */}
+      <div className="absolute top-1/4 -left-32 w-64 h-64 rounded-full bg-[#818cf8]/5 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-32 w-64 h-64 rounded-full bg-[#f59e0b]/5 blur-[100px] pointer-events-none" />
+
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
